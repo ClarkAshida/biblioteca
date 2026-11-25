@@ -38,3 +38,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### H2 local ###
+data/
+*.mv.db
+*.trace.db

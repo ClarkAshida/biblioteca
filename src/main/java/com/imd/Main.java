@@ -1,17 +1,23 @@
 package com.imd;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.imd.infraestrutura.banco.FabricaConexoes;
+import com.imd.infraestrutura.banco.InicializadorBanco;
+import com.imd.ui.ConsoleBiblioteca;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        var fabrica = FabricaConexoes.padrao();
+        var banco = new InicializadorBanco(fabrica);
+        try {
+            banco.inicializar();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Não foi possível inicializar o banco. Verifique banco.properties.", e);
+        }
+        try (var entrada = new Scanner(System.in, StandardCharsets.UTF_8)) {
+            new ConsoleBiblioteca(entrada, System.out).executar();
         }
     }
 }
