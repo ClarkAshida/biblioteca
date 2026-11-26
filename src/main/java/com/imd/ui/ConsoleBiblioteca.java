@@ -6,10 +6,17 @@ import java.util.Scanner;
 public final class ConsoleBiblioteca {
     private final Scanner entrada;
     private final PrintStream saida;
+    private final com.imd.service.AcervoService acervo;
 
     public ConsoleBiblioteca(Scanner entrada, PrintStream saida) {
+        this(entrada, saida, new com.imd.service.AcervoService(new com.imd.repository.AcervoRepository(
+                com.imd.infraestrutura.banco.FabricaConexoes.padrao())));
+    }
+
+    public ConsoleBiblioteca(Scanner entrada, PrintStream saida, com.imd.service.AcervoService acervo) {
         this.entrada = entrada;
         this.saida = saida;
+        this.acervo = acervo;
     }
 
     public void executar() {
@@ -28,8 +35,7 @@ public final class ConsoleBiblioteca {
             switch (lerOpcao()) {
                 case "0" -> { saida.println("Até logo!"); return; }
                 case "1" -> menuPendente("Usuários e acesso", "Login e logout", "Gestão de usuários (CRUD)", "Permissões por perfil");
-                case "2" -> menuPendente("Acervo e disponibilidade", "Consultar materiais e disponibilidade",
-                        "Cadastrar material e exemplares/licenças", "Editar material", "Excluir material");
+                case "2" -> new ConsoleAcervo(entrada, saida, acervo).executar();
                 case "3" -> menuPendente("Empréstimos e multas", "Emprestar material", "Devolver livro físico",
                         "Revogar acesso de e-book", "Renovar empréstimo", "Consultar empréstimos e multas", "Quitar multa");
                 case "4" -> menuPendente("Reservas de materiais", "Solicitar reserva", "Consultar fila de espera", "Cancelar reserva");

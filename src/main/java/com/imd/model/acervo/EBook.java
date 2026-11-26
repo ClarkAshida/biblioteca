@@ -20,8 +20,7 @@ public class EBook extends Material {
 
     @Override
     public boolean consultarDisponibilidade() {
-        // TODO: Verificar a disponibilidade das licenças.
-        throw new UnsupportedOperationException("Método ainda não implementado.");
+        return licencasEmUso < licencasTotais;
     }
 
     @Override

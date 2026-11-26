@@ -69,7 +69,6 @@ métodos concretos de negócio lançam `UnsupportedOperationException` até a im
 pelo responsável. Validações, cálculos, autenticação, transições de estado e persistência
 serão desenvolvidos nos módulos.
 
-Consulte a [divisão de trabalho](docs/desenvolvimento.md)
 antes de iniciar um módulo. Os [requisitos](docs/requisitos.md) e o diagrama continuam
 sendo as referências do projeto.
 
