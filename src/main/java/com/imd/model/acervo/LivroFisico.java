@@ -16,8 +16,7 @@ public class LivroFisico extends Material {
 
     @Override
     public boolean consultarDisponibilidade() {
-        // TODO: Verificar a disponibilidade dos exemplares.
-        throw new UnsupportedOperationException("Método ainda não implementado.");
+        return exemplares.stream().anyMatch(exemplar -> !exemplar.isEmprestado());
     }
 
     @Override
@@ -28,5 +27,15 @@ public class LivroFisico extends Material {
 
     public List<Exemplar> getExemplares() {
         return List.copyOf(exemplares);
+    }
+
+    public void adicionarExemplar(Exemplar exemplar) {
+        if (exemplar == null || exemplar.getLivro() != this) {
+            throw new IllegalArgumentException("O exemplar deve pertencer a este livro.");
+        }
+        if (exemplares.stream().anyMatch(e -> e.getCodigo().equals(exemplar.getCodigo()))) {
+            throw new IllegalArgumentException("Código de exemplar duplicado.");
+        }
+        exemplares.add(exemplar);
     }
 }
