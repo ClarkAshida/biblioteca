@@ -2,6 +2,7 @@ package com.imd.model.usuario;
 
 import com.imd.enums.Perfil;
 import com.imd.enums.Permissao;
+import com.imd.exception.AcessoNegadoException;
 import com.imd.exception.DadosInvalidosException;
 import com.imd.infraestrutura.seguranca.GeradorHash;
 
@@ -54,6 +55,12 @@ public abstract class Usuario {
 
     public boolean temPermissao(Permissao permissao) {
         return perfis.stream().anyMatch(p -> p.permite(permissao));
+    }
+
+    public void exigirPermissao(Permissao permissao) {
+        if (!temPermissao(permissao)) {
+            throw new AcessoNegadoException("Você não tem permissão para: " + permissao);
+        }
     }
 
     public Long getId() {
