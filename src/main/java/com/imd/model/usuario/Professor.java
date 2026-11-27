@@ -2,6 +2,9 @@ package com.imd.model.usuario;
 
 public class Professor extends Leitor {
 
+    private static final int LIMITE_EMPRESTIMOS = 5;
+    private static final int PRAZO_EMPRESTIMO_DIAS = 30;
+
     private String departamento;
 
     public Professor(Long id, String nome, String email, String senha, String matricula, String departamento) {
@@ -12,13 +15,13 @@ public class Professor extends Leitor {
     @Override
     public int limiteEmprestimos() {
         // TODO: Definir o limite de empréstimos para professores.
-        throw new UnsupportedOperationException("Método ainda não implementado.");
+        return LIMITE_EMPRESTIMOS;
     }
 
     @Override
     public int prazoEmprestimo() {
         // TODO: Definir o prazo de empréstimo para professores.
-        throw new UnsupportedOperationException("Método ainda não implementado.");
+        return PRAZO_EMPRESTIMO_DIAS;
     }
 
     public String getDepartamento() {
