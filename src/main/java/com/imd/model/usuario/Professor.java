@@ -14,13 +14,11 @@ public class Professor extends Leitor {
 
     @Override
     public int limiteEmprestimos() {
-        // TODO: Definir o limite de empréstimos para professores.
         return LIMITE_EMPRESTIMOS;
     }
 
     @Override
     public int prazoEmprestimo() {
-        // TODO: Definir o prazo de empréstimo para professores.
         return PRAZO_EMPRESTIMO_DIAS;
     }
 
