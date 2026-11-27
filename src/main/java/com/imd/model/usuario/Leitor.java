@@ -1,6 +1,7 @@
 package com.imd.model.usuario;
 
 import com.imd.enums.Perfil;
+import com.imd.exception.DadosInvalidosException;
 import com.imd.model.emprestimo.Emprestimo;
 import com.imd.model.reserva.ReservaMaterial;
 import com.imd.model.sala.ReservaSala;
@@ -15,8 +16,11 @@ public abstract class Leitor extends Usuario {
     private final List<ReservaMaterial> reservasMaterial = new ArrayList<>();
     private final List<ReservaSala> reservasSala = new ArrayList<>();
 
-    protected Leitor(Long id, String nome, String email, String senha, String matricula) {
-        super(id, nome, email, senha, Perfil.LEITOR);
+    protected Leitor(Long id, String nome, String email, String senhaHash, String matricula) {
+        super(id, nome, email, senhaHash, Perfil.LEITOR);
+        if (matricula == null || matricula.isBlank()) {
+            throw new DadosInvalidosException("A matrícula é obrigatória.");
+        }
         this.matricula = matricula;
     }
 
